@@ -22,7 +22,7 @@
  ## 3.使用zip文件下发
  该方式，需要先生成RSA密钥。
  ```
- #生成RSA密钥 命令行依次写入
+#生成RSA密钥 命令行依次写入
 #cd 文件夹
 #openssl
 #genrsa -out rsatest_private_key.pem 1024
@@ -45,8 +45,8 @@
 ## 5.使用自定义的下发链接
 找到JPLoader文件，我们不使用rootUrl的方式，所以需要修改updateToVersion方法
 ```
-+ (void)updateToVersion:(NSInteger)version  callback:(JPUpdateCallback)callback;
-//添加一个参数，加载脚本的链接
++ (void)updateToVersion:(NSInteger)version  callback:(JPUpdateCallback)callback;//原来的方法
+//修改后的方法：添加一个参数，加载脚本的链接
 + (void)updateToVersion:(NSInteger)version loadURL:(NSString*)loadURL callback:(JPUpdateCallback)callback;
    // create url request
 //    NSString *downloadKey = [NSString stringWithFormat:@"/%@/v%@.zip", appVersion, @(version)];
