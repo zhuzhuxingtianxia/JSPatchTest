@@ -18,9 +18,9 @@
  */
  第二次才真正的去加载补丁包。
  ```
- ## 使用zip文件下发
+ ## 3.使用zip文件下发
  
- 该方式，需要先生成 RSA 密钥。
+ 该方式，需要先生成RSA密钥。
  ```
  #生成RSA密钥 命令行依次写入
 #cd 文件夹
@@ -29,7 +29,7 @@
 #pkcs8 -topk8 -inform PEM -in rsatest_private_key.pem -outform PEM –nocrypt
 #rsa -in rsatest_private_key.pem -pubout -out rsatest_public_key.pem
 ```
-配置
+配置RSA密钥
 ```
 #文本形式打开rsatest_public_key.pem替换 JPLoader.h 里的 publicKey。
 #打开rsatest_private_key.pem替换tools/pack.php 里的privateKey。
@@ -59,5 +59,6 @@
     NSURL *downloadURL = [NSURL URLWithString:loadURL];
 ```
 ## 6. 测试下发的zip文件
-若使用 XCode8 接入，需要在项目 Capabilities 打开 Keychain Sharing 开关，否则在模拟器下载脚本后会出现 decompress error, md5 didn't match 错误（真机无论是否打开都没问题）：<br>
+若使用 XCode8 接入，需要在项目 Capabilities 打开 Keychain Sharing 开关，否则在模拟器下载脚本后会出现 decompress error, md5 didn't match 错误（真机无论是否打开都没问题）：
+<br>
 TARGETS -> Capabilities -> Keychain Sharing 设置为YES .
