@@ -7,18 +7,21 @@
 ## 2.补丁下发分为两次请求
 第一次返回格式及字段
 主要用于版本的判断比较
-
+```
+/*
+ 注意：一定要返回json格式。
+ 请求返回字段说明：
+  file_name: js文件名
+  app_version: app版本号
+  js_version: js文件版本号 使用Integer类型
+  js_url: js文件请求地址
+ */
+ 第二次才真正的去加载补丁包。
+ ```
  
  ## 3.使用zip文件下发
  该方式，需要先生成RSA密钥。
- ```
-#生成RSA密钥 命令行依次写入
-#cd 文件夹
-#openssl
-#genrsa -out rsatest_private_key.pem 1024
-#pkcs8 -topk8 -inform PEM -in rsatest_private_key.pem -outform PEM –nocrypt
-#rsa -in rsatest_private_key.pem -pubout -out rsatest_public_key.pem
-```
+ 
 配置RSA密钥
 ```
 #文本形式打开rsatest_public_key.pem替换 JPLoader.h 里的 publicKey。
