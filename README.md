@@ -1,5 +1,8 @@
 # JSPatchTest
 使用github实现补丁下发 ，首先要接入<a href = "https://github.com/bang590/JSPatch"> JSPatch </a>
+导入<#import "JSPatchCode.h">
+在application didFinishLaunchingWithOptions调用<br>
+[JSPatchCode syncUpdate];
 ## 1.支持两种文件下发
 支持JSPatch单个js文件的下发
 支持JSPatch的zip压缩包的下发，zip必须包含一个main.js文件。
