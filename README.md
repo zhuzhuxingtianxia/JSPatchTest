@@ -18,7 +18,7 @@
  */
  第二次才真正的去加载补丁包。
  ```
- ## 3.使用zip文件下发
+ ## 使用zip文件下发
  
  该方式，需要先生成 RSA 密钥。
  ```
@@ -59,5 +59,5 @@
     NSURL *downloadURL = [NSURL URLWithString:loadURL];
 ```
 ## 6. 测试下发的zip文件
-若使用 XCode8 接入，需要在项目 Capabilities 打开 Keychain Sharing 开关，否则在模拟器下载脚本后会出现 decompress error, md5 didn't match 错误（真机无论是否打开都没问题）：
+若使用 XCode8 接入，需要在项目 Capabilities 打开 Keychain Sharing 开关，否则在模拟器下载脚本后会出现 decompress error, md5 didn't match 错误（真机无论是否打开都没问题）：<br>
 TARGETS -> Capabilities -> Keychain Sharing 设置为YES .
