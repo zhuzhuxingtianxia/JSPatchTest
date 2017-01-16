@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "JPEngine.h"
 #import "JPLoader.h"
-
+//遵守命名规则，只需要修改仓库名和最后的文件名即可使用。
 #define pacthRequestUrl(appName,appVersion) \
-[NSString stringWithFormat:@"https://github.com/hotJSPatch/%@%@/raw/master/patchVersion",appName,appVersion];
+[NSString stringWithFormat:@"https://github.com/hotJSPatch/%@%@/raw/master/patchVersion",appName,appVersion]
 
 typedef NS_ENUM(NSInteger, ZJComparisonResult)
 {

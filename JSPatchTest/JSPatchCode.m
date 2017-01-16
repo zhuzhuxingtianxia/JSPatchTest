@@ -27,14 +27,13 @@
     //
     [JPLoader run];
     
-    /*
-     //建议:路径中使用app的名字和app版本号命名，这样方便管理
-     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleNameKey];
-     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    //建议使用这种:路径中使用app的名字和app版本号命名，这样方便管理
+    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleNameKey];
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *requestUrl = pacthRequestUrl(appName,appVersion);
-     [JSPatchCode patchVersionCheck:requestUrl];
-    */
+    [JSPatchCode patchVersionCheck:requestUrl];
     
+    /*
     //用于测试
     if (1) {
         //加载单个js文件
@@ -48,7 +47,7 @@
         NSString *requestUrl = [NSString stringWithFormat:@"https://github.com/hotJSPatch/%@%@/raw/master/patchVersion",appName,appVersion];
         [JSPatchCode patchVersionCheck:requestUrl];
     }
-    
+    */
 }
 static dispatch_semaphore_t semaphore;
 +(void)patchVersionCheck:(NSString*)urlStr{
