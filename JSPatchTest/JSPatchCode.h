@@ -10,6 +10,9 @@
 #import "JPEngine.h"
 #import "JPLoader.h"
 
+#define pacthRequestUrl(appName,appVersion) \
+[NSString stringWithFormat:@"https://github.com/hotJSPatch/%@%@/raw/master/patchVersion",appName,appVersion];
+
 typedef NS_ENUM(NSInteger, ZJComparisonResult)
 {
     ZJOrderedAscending = -1L,//升序

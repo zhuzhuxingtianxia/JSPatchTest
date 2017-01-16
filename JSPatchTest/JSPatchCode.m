@@ -11,6 +11,7 @@
 #import <netdb.h>
 
 #define kJSPatchVersion(appVersion)   [NSString stringWithFormat:@"JSPatchVersion_%@", appVersion]
+
 /*
  注意：一定要返回json格式。
  请求返回字段说明：
@@ -26,7 +27,16 @@
     //
     [JPLoader run];
     
-    if (0) {
+    /*
+     //建议:路径中使用app的名字和app版本号命名，这样方便管理
+     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleNameKey];
+     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *requestUrl = pacthRequestUrl(appName,appVersion);
+     [JSPatchCode patchVersionCheck:requestUrl];
+    */
+    
+    //用于测试
+    if (1) {
         //加载单个js文件
         [JSPatchCode patchVersionCheck:@"https://raw.githubusercontent.com/hotJSPatch/jsv/master/patchVersion"];
         
@@ -56,7 +66,7 @@ static dispatch_semaphore_t semaphore;
     //创建信号量
      semaphore = dispatch_semaphore_create(0);
     
-  NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     
     NSURLSessionDataTask *dataTask= [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (!error) {
@@ -81,8 +91,6 @@ static dispatch_semaphore_t semaphore;
             dispatch_semaphore_signal(semaphore);
         }
         
-        //发送信号
-        //dispatch_semaphore_signal(semaphore);
     }];
     [dataTask resume];
     //等待
@@ -109,6 +117,11 @@ static dispatch_semaphore_t semaphore;
             [JSPatchCode jsPatchLoading:patchDic];
         }
         
+    }else if (patchDic && [JSPatchCode compareVersionNumber:patchDic[@"app_version"]] ==ZJOrderedDescending){
+        //更新了新的app版本，则删除本地脚本
+        [JSPatchCode removeLocalJSPatch];
+        //发送信号
+        dispatch_semaphore_signal(semaphore);
     }
     
 }
