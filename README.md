@@ -5,6 +5,8 @@
 ```
 [JSPatchCode syncUpdate];
 ```
+<a href = "http://blog.sina.com.cn/s/blog_133384b110102xben.html">具体讲解点这里</a><br>
+
 ## 1.支持两种文件下发
 支持JSPatch单个js文件的下发
 支持JSPatch的zip压缩包的下发，zip必须包含一个main.js文件。
