@@ -26,7 +26,9 @@ typedef NS_ENUM(NSInteger, ZJComparisonResult)
  在.m文件中，修改github地址为你自己的git地址
  自定义修改JPLoader的 updateToVersion方法
  */
-+(void)syncUpdate;
+
+// 同步加载还是异步加载补丁更新
++(void)asyncUpdate:(BOOL)async;
 
 /*
  -----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMPrkwMxpZwe+ypVR6I5uZ+NAn\nVSJI/fOAeq3DES7vQAUYZSV+zPT1JNtabFKApuN2HCI7ZRbRdXnwJK2kt9DRco6a\nB5zI9V+gkAjV/KLt8FtjFfzqGswjbhozTH3gkiyrWgJqp7s4XDz0F/wIoS/z/Skf\nay6ZuQOwqFLRvgJJQwIDAQAB\n

@@ -22,11 +22,11 @@
  */
 
 @implementation JSPatchCode
-
-+(void)syncUpdate{
+static BOOL _async;
++(void)asyncUpdate:(BOOL)async{
     //
     [JPLoader run];
-    
+    _async = async;
     //建议使用这种:路径中使用app的名字和app版本号命名，这样方便管理
     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleNameKey];
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -63,7 +63,9 @@ static dispatch_semaphore_t semaphore;
     
     //使用信号量阻塞线程，实现同步请求
     //创建信号量
-     semaphore = dispatch_semaphore_create(0);
+    if (!_async) {
+        semaphore = dispatch_semaphore_create(0);
+    }
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     
@@ -87,13 +89,19 @@ static dispatch_semaphore_t semaphore;
             //获取本地补丁文件
             [JSPatchCode getJSPatchWithFileName:patchFileName];
             //发送信号
-            dispatch_semaphore_signal(semaphore);
+            if (!_async) {
+                dispatch_semaphore_signal(semaphore);
+            }
+            
         }
         
     }];
     [dataTask resume];
     //等待
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    if (!_async) {
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    }
+    
 }
 
 +(void)mangerJSPatchVersion:(NSDictionary*)patchDic{
@@ -107,7 +115,9 @@ static dispatch_semaphore_t semaphore;
             //获取本地补丁文件
             [JSPatchCode getJSPatchWithFileName:patchDic[@"file_name"]];
             //发送信号
-            dispatch_semaphore_signal(semaphore);
+            if (!_async) {
+                dispatch_semaphore_signal(semaphore);
+            }
             
         }else if ([patchDic[@"js_version"] integerValue] < [JSPatchCode currentJSVersion]){
             //版本回滚
@@ -120,7 +130,9 @@ static dispatch_semaphore_t semaphore;
         //更新了新的app版本，则删除本地脚本
         [JSPatchCode removeLocalJSPatch];
         //发送信号
-        dispatch_semaphore_signal(semaphore);
+        if (!_async) {
+            dispatch_semaphore_signal(semaphore);
+        }
     }
     
 }
@@ -144,7 +156,9 @@ static dispatch_semaphore_t semaphore;
                 
             }
             //发送信号
-            dispatch_semaphore_signal(semaphore);
+            if (!_async) {
+                dispatch_semaphore_signal(semaphore);
+            }
         }];
         
     }else if ([pathExtension isEqualToString:@"js"]){
@@ -162,7 +176,9 @@ static dispatch_semaphore_t semaphore;
 
             }
             //发送信号
-            dispatch_semaphore_signal(semaphore);
+            if (!_async) {
+                dispatch_semaphore_signal(semaphore);
+            }
         }];
         [dataTask resume];
     }
