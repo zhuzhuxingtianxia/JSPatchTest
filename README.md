@@ -3,7 +3,9 @@
 导入<#import "JSPatchCode.h"><br>
 在application didFinishLaunchingWithOptions调用<br>
 ```
-[JSPatchCode syncUpdate];
+//YES为异步更新，第二次启动才会执行脚本
+//NO为同步更新，第一次启动就会执行脚本，但启动慢
+[JSPatchCode asyncUpdate:YES];
 ```
 <a href = "http://blog.sina.com.cn/s/blog_133384b110102xben.html">具体讲解点这里</a><br>
 
